@@ -1,18 +1,28 @@
 ---
-language: ruby
-script:
-  - 'bundle exec rake $CHECK'
-matrix:
-  fast_finish: true
-  include:
-  - rvm: 2.1.9
-    env: PUPPET_VERSION="~> 3.0" STRICT_VARIABLES="yes" CHECK=test
-  - rvm: 2.1.9
-    env: PUPPET_VERSION="~> 4.0" CHECK=test
-  - rvm: 2.3.1
-    env: PUPPET_VERSION="~> 4.0" CHECK=rubocop
-  - rvm: 2.3.1
-    env: PUPPET_VERSION="~> 4.0" CHECK=test DEPLOY_TO_FORGE=no
+sudo: false
+
+addons:
+  apt:
+    sources:
+      - sourceline: 'deb https://apt.puppetlabs.com xenial PC1'
+      - key_url: 'https://apt.puppetlabs.com/dists/precise/Release.gpg'
+    packages:
+      - puppet
+
+#language: ruby
+#script:
+#  - 'bundle exec rake $CHECK'
+#matrix:
+#  fast_finish: true
+#  include:
+#  - rvm: 2.1.9
+#    env: PUPPET_VERSION="~> 3.0" STRICT_VARIABLES="yes" CHECK=test
+#  - rvm: 2.1.9
+#    env: PUPPET_VERSION="~> 4.0" CHECK=test
+#  - rvm: 2.3.1
+#    env: PUPPET_VERSION="~> 4.0" CHECK=rubocop
+#  - rvm: 2.3.1
+#    env: PUPPET_VERSION="~> 4.0" CHECK=test DEPLOY_TO_FORGE=no
 deploy:
   provider: puppetforge
   user: "aolabs"
