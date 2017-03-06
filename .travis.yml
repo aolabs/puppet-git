@@ -1,8 +1,12 @@
 ---
 
-# Allow outbound network conenction (Coveralls requires this to post results).
 env:
+  # Allow outbound network conenction (Coveralls requires this to post results).
   - USENETWORK=true
+
+  # Puppet validator strictness.
+  - STRICT_VARIABLES=true
+  - STRICT=error
 
 # We don't require sudo so we can be tested in the (faster) container based environment.
 sudo: false
@@ -21,22 +25,34 @@ matrix:
   fast_finish: true
   include:
   - rvm: 2.1.9
-    env: PUPPET_VERSION="~> 3.0" STRICT_VARIABLES="yes"
+    env: PUPPET_VERSION="~> 3.0"
   - rvm: 2.1.9
     env: PUPPET_VERSION="~> 4.0"
   - rvm: 2.3.1
     env: PUPPET_VERSION="~> 4.0"
   - rvm: 2.3.1
-    env: PUPPET_VERSION="~> 4.0" DEPLOY_TO_FORGE=false
-  - rvm: jruby
     env: PUPPET_VERSION="~> 4.0"
-
-# When testing jruby, test with the following jvms.
-jdk:
-  - openjdk7
-  - oraclejdk7
-  - oraclejdk8
-  - openjdk6
+  - rvm: jruby-head
+    env: PUPPET_VERSION="~> 4.0"
+    jdk:
+      - openjdk7
+      - oraclejdk7
+      - oraclejdk8
+      - openjdk6
+  - rvm: jruby-18mode
+    env: PUPPET_VERSION="~> 4.0"
+    jdk:
+      - openjdk7
+      - oraclejdk7
+      - oraclejdk8
+      - openjdk6
+  - rvm: jruby-19mode
+    env: PUPPET_VERSION="~> 4.0"
+    jdk:
+      - openjdk7
+      - oraclejdk7
+      - oraclejdk8
+      - openjdk6
 
 # Call the default puppetlabs test provider which will validate, lint, and test.
 script:
