@@ -1,13 +1,14 @@
 ---
 sudo: false
+dist: trusty
 
 addons:
   apt:
     sources:
-      - sourceline: 'deb https://apt.puppetlabs.com xenial PC1'
-      - key_url: 'https://apt.puppetlabs.com/DEB-GPG-KEY-puppet'
+    - sourceline: 'deb https://apt.puppetlabs.com trusty PC1'
+    - key_url: 'https://apt.puppetlabs.com/DEB-GPG-KEY-puppet'
     packages:
-      - puppet
+    - puppet
 
 #language: ruby
 #script:
