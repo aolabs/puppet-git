@@ -4,10 +4,10 @@ sudo: false
 addons:
   apt:
     sources:
-    - sourceline: 'deb https://apt.puppetlabs.com xenial PC1'
-    - key_url: 'https://apt.puppetlabs.com/dists/precise/Release.gpg'
+      - sourceline: 'deb https://apt.puppetlabs.com xenial PC1'
+      - key_url: 'https://apt.puppetlabs.com/DEB-GPG-KEY-puppet'
     packages:
-    - puppet
+      - puppet
 
 #language: ruby
 #script:
