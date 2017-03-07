@@ -1,6 +1,5 @@
 ---
 
-
 # We don't require sudo so we can be tested in the (faster) container based environment.
 sudo: false
 
@@ -13,72 +12,76 @@ addons:
     packages:
       - haveged
 
-# Emtpy environment so we can override in matrix below.
-env:
+# Install JDKs for jRuby testing.
+jdk:
+  - openjdk7
+  - oraclejdk7
+  - oraclejdk8
+  - openjdk6
+
+# Install ruby versions.
+ruby:
+  - 2.1
+  - 2.2
+  - 2.3
+  - jruby-head
+  - jruby-18mode
+  - jruby-19mode
 
 language: ruby
 matrix:
   fast_finish: true
   include:
+
   - rvm: 2.1
-    env:
-      - PUPPET_VERSION="~> 3.0"
-      - USENETWORK=true
-      - STRICT_VARIABLES=true
-      - STRICT=error
+    env: PUPPET_VERSION="~> 3.0" USENETWORK=true STRICT_VARIABLES=true STRICT=error
   - rvm: 2.1
-    env:
-      - PUPPET_VERSION="~> 4.0"
-      - USENETWORK=true
-      - STRICT_VARIABLES=true
-      - STRICT=error
+    env: PUPPET_VERSION="~> 4.0" USENETWORK=true STRICT_VARIABLES=true STRICT=error
   - rvm: 2.2
-    env:
-      - PUPPET_VERSION="~> 4.0"
-      - USENETWORK=true
-      - STRICT_VARIABLES=true
-      - STRICT=error
+    env: PUPPET_VERSION="~> 4.0" USENETWORK=true STRICT_VARIABLES=true STRICT=error
   - rvm: 2.3
-    env:
-      - PUPPET_VERSION="~> 4.0"
-      - USENETWORK=true
-      - STRICT_VARIABLES=true
-      - STRICT=error
-      - FORGE_DEPLOY=true
-      - GITHUB_RELEASE=true
+    env: PUPPET_VERSION="~> 4.0" USENETWORK=true STRICT_VARIABLES=true STRICT=error FORGE_DEPLOY=true GITHUB_RELEASE=true
+
   - rvm: jruby-head
-    env:
-      - PUPPET_VERSION="~> 4.0"
-      - USENETWORK=true
-      - STRICT_VARIABLES=true
-      - STRICT=error
-    jdk:
-      - openjdk7
-      - oraclejdk7
-      - oraclejdk8
-      - openjdk6
+    env: PUPPET_VERSION="~> 4.0" USENETWORK=true STRICT_VARIABLES=true STRICT=error
+    jdk: openjdk6
+  - rvm: jruby-head
+    env: PUPPET_VERSION="~> 4.0" USENETWORK=true STRICT_VARIABLES=true STRICT=error
+    jdk: openjdk7
+  - rvm: jruby-head
+    env: PUPPET_VERSION="~> 4.0" USENETWORK=true STRICT_VARIABLES=true STRICT=error
+    jdk: oraclejdk7
+  - rvm: jruby-head
+    env: PUPPET_VERSION="~> 4.0" USENETWORK=true STRICT_VARIABLES=true STRICT=error
+    jdk: oraclejdk8
+
+
   - rvm: jruby-18mode
-    env:
-      - PUPPET_VERSION="~> 4.0"
-      - USENETWORK=true
-      - STRICT_VARIABLES=true
-      - STRICT=error
-    jdk:
-      - openjdk7
-      - oraclejdk7
-      - oraclejdk8
-      - openjdk6
+    env: PUPPET_VERSION="~> 4.0" USENETWORK=true STRICT_VARIABLES=true STRICT=error
+    jdk: openjdk6
+  - rvm: jruby-18mode
+    env: PUPPET_VERSION="~> 4.0" USENETWORK=true STRICT_VARIABLES=true STRICT=error
+    jdk: openjdk7
+  - rvm: jruby-18mode
+    env: PUPPET_VERSION="~> 4.0" USENETWORK=true STRICT_VARIABLES=true STRICT=error
+    jdk: oraclejdk7
+  - rvm: jruby-18mode
+    env: PUPPET_VERSION="~> 4.0" USENETWORK=true STRICT_VARIABLES=true STRICT=error
+    jdk: oraclejdk8
+
   - rvm: jruby-19mode
-    env:
-      - PUPPET_VERSION="~> 4.0"
-      - USENETWORK=true
-      - STRICT_VARIABLES=true
-      - STRICT=error
-    jdk:
-      - openjdk7
-      - oraclejdk7
-      - oraclejdk8
-      - openjdk6
+    env: PUPPET_VERSION="~> 4.0" USENETWORK=true STRICT_VARIABLES=true STRICT=error
+    jdk: openjdk6
+  - rvm: jruby-19mode
+    env: PUPPET_VERSION="~> 4.0" USENETWORK=true STRICT_VARIABLES=true STRICT=error
+    jdk: openjdk7
+  - rvm: jruby-19mode
+    env: PUPPET_VERSION="~> 4.0" USENETWORK=true STRICT_VARIABLES=true STRICT=error
+    jdk: oraclejdk7
+  - rvm: jruby-19mode
+    env: PUPPET_VERSION="~> 4.0" USENETWORK=true STRICT_VARIABLES=true STRICT=error
+    jdk: oraclejdk8
+
 
 # Call the default puppetlabs test provider which will validate, lint, and test.
 script:
@@ -88,7 +91,7 @@ deploy:
   - provider: puppetforge
     user: "aolabs"
     password:
-    secure: p3v+RqS1QpWkzx0CwSZOcDcn99+mjw4U5OynqQY0v/PIoie6E8eLS+vNZpMmOxxi6cjkBHS+69C8TzZN6HjFOi2i+Nwl6i8fiXxYgf0Q86OFcY6xnqZGnNLNKBGvZJH7K3uhIcBi6QFy+DA/WZHQsazkfsmcUoiFOP8FXl4wnWyG7Vo9dq7w+ZAHSggYfZ7UAtjfxXlzNvYEj8GfrnAvhJ/uoyRifGPxBXwjslUCDJ67NIDYkx0qz56szJrDEjUYEPMiPB0IzfNeJCoFob1boruGclY1Md3oGG76dOttajKEw5qUv0ytYrS1mVwGX2dxQEXWQP5YC4zD4D8kEzMYZ48yjphYPUS/qUNLe5z/B5lROXz5Zln7fIFo5JRYrq9FmtsoQu+C6SMVpC/XhpUlg0edU3TcqwscyAGaD5EZYbUzblsbDaDMkAx03dn/KcDnL3maB/38ppUnuW36Johd6mfUZSr9DVK/g2EPzTbUbmeF9rjL0vCvdZ51mElfSX2YzD1IPtB0eI50X3UzE9ByE/0PPcCnD6T5nGPqA2gcexeS47n50M1kedmK38LOD/y4CDJqwaedV7OFNizr4P/xXmYUaVhse6oi7RvBlgLsFmbCmMQ35zKU8U2uIDtuO6J6iBstXU/8eLiK4rujRU5VqROuhSmun/0iEO2ClTti9AQ=
+      secure: p3v+RqS1QpWkzx0CwSZOcDcn99+mjw4U5OynqQY0v/PIoie6E8eLS+vNZpMmOxxi6cjkBHS+69C8TzZN6HjFOi2i+Nwl6i8fiXxYgf0Q86OFcY6xnqZGnNLNKBGvZJH7K3uhIcBi6QFy+DA/WZHQsazkfsmcUoiFOP8FXl4wnWyG7Vo9dq7w+ZAHSggYfZ7UAtjfxXlzNvYEj8GfrnAvhJ/uoyRifGPxBXwjslUCDJ67NIDYkx0qz56szJrDEjUYEPMiPB0IzfNeJCoFob1boruGclY1Md3oGG76dOttajKEw5qUv0ytYrS1mVwGX2dxQEXWQP5YC4zD4D8kEzMYZ48yjphYPUS/qUNLe5z/B5lROXz5Zln7fIFo5JRYrq9FmtsoQu+C6SMVpC/XhpUlg0edU3TcqwscyAGaD5EZYbUzblsbDaDMkAx03dn/KcDnL3maB/38ppUnuW36Johd6mfUZSr9DVK/g2EPzTbUbmeF9rjL0vCvdZ51mElfSX2YzD1IPtB0eI50X3UzE9ByE/0PPcCnD6T5nGPqA2gcexeS47n50M1kedmK38LOD/y4CDJqwaedV7OFNizr4P/xXmYUaVhse6oi7RvBlgLsFmbCmMQ35zKU8U2uIDtuO6J6iBstXU/8eLiK4rujRU5VqROuhSmun/0iEO2ClTti9AQ=
     on:
       tags: true
       all_branches: true
