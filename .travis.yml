@@ -32,16 +32,18 @@ language: ruby
 # matrix (else we end up with more excludes that we would have includes).
 matrix:
   include:
-    - rvm: 2.2.6
+    - rvm: 2.2
       env: PUPPET_VERSION="~> 4.0" CHECK=test
-    - rvm: 2.3.3
+    - rvm: 2.3
       env: PUPPET_VERSION="~> 4.0" CHECK=test
-    - rvm: 2.4.0
+    - rvm: 2.4
       env: PUPPET_VERSION="~> 4.0" CHECK=test
-    - rvm: 2.4.0
+    - rvm: 2.4
       env: PUPPET_VERSION="~> 4.0" CHECK=rubocop
-    - rvm: 2.4.0
+    - rvm: 2.4
       env: PUPPET_VERSION="~> 4.0" CHECK=build FORGERELEASE=yes GITHUBRELEASE=yes
+    - rvm: jruby-head
+      env: PUPPET_VERSION="~> 4.0" CHECK=test
 
 # Call the default puppetlabs test provider which will validate, lint, and test.
 script:
