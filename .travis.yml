@@ -12,34 +12,40 @@ addons:
     packages:
       - haveged
 
+# Make sure we use a current bundler, disable system tests on bundler install for speed.
+bundler_args: --without system_tests
+before_install:
+  - gem update bundler
+
+# Variables to assign to all jobs.
 env:
   global:
     - USENETWORK=true
     - STRICT_VARIABLES="yes"
     - STRICT="error"
     - JRUBY_OPTS="--debug"
-  matrix:
-    - PUPPET_VERSION="~> 3.0"
-    - PUPPET_VERSION="~> 4.0"
 
-rvm:
-  - 2.1
-  - 2.2
-  - 2.3
-  - jruby-head
-
-bundler_args: --without system_tests
-before_install:
-  - gem update bundler
-
+# Use the Ruby Travis image
 language: ruby
 
+# Include specific tests rather than letting Travis do is automatic
+# matrix (else we end up with more excludes that we would have includes).
 matrix:
-  exclude:
+  include:
+    - rvm: 2.2.6
+      env: PUPPET_VERSION="~> 4.0" CHECK=test
+    - rvm: 2.3.3
+      env: PUPPET_VERSION="~> 4.0" CHECK=test
+    - rvm: 2.4.0
+      env: PUPPET_VERSION="~> 4.0" CHECK=test
+    - rvm: 2.4.0
+      env: PUPPET_VERSION="~> 4.0" CHECK=rubocop
+    - rvm: 2.4.0
+      env: PUPPET_VERSION="~> 4.0" CHECK=build FORGERELEASE=yes GITHUBRELEASE=yes
 
 # Call the default puppetlabs test provider which will validate, lint, and test.
 script:
-  - 'bundle exec rake test'
+  - 'bundle exec rake $CHECK'
 
 notifcations:
   email:
@@ -56,6 +62,7 @@ deploy:
     on:
       tags: true
       all_branches: true
+      condition: "$FORGERELEASE = yes"
   - provider: releases
     api_key:
       secure: wu6MWLSnosRwRi+PtZZBdVRDFryl+c6UwrD84oC3bpVmDVlT6FwWZYsO4I04QJw9W7AhjgPfTEeHwaKFUOvwko9htwtyxo45EcjgYDjIRZ/2HTrgBG29VWk8iav9ivqeh5dmkpcGzqnCwH/lM9S6673fkoi7neMZZjYi9nr2gfvHUUek63KjCHyd6soPsqcmni7i80xOeX+H8M2fhguvxehFQuffR8511NFBvLGEXN7cDfeiNjSWYdxQd7FjBo3flrVdqOfTq+3O1PrGEBDb0Hxk4maV4yaLqET9rM/U6/X6P6Yuqm0+jI/lxC65ZzsUwBfqD6/uTeHPcoRivOHVE+vRhdvQ9dHGNuAtD0r8qKHM25p24QFWybzxNtkfTtyqYMCzkN9lKi8Y8BH0Gkt41/P/cASB7A6BMLSsu7UEYuYGyUT8M6MojNMLcMTpeRdYZ4b7ACP2rYpIocjpmruofAJLNEWDxXR2IClY1kLgMJH1NTI0kXOted9NcfbKJLJs1GEYRO6VR5q6KvNwR99RIVKQzzFk21RRjFK4+BWzZtDEVX1aZBLKMJLzLZF6ESx15Y2iuiErtCkmokbbwPhApZztklyGedo2oyJGvtcJp8ftIGC3LPciSK2p3d0laYKYGsM58RLhcSHZPw2AO4oS1ZuYJ6mSvu51GVoHH8tMRXg=
@@ -65,3 +72,4 @@ deploy:
     on:
       tags: true
       all_branches: true
+      condition: "$GITHUBRELEASE = yes"
