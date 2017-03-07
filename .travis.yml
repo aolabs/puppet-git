@@ -23,6 +23,9 @@ env:
     - PUPPET_VERSION="~> 4.0"
 
 rvm:
+  - 1.8
+  - 1.9
+  - 2.0
   - 2.1
   - 2.2
   - 2.3
@@ -34,6 +37,18 @@ language: ruby
 
 matrix:
   exclude:
+    - rvm: 2.1
+      env: PUPPET_VERSION="~> 3.0"
+    - rvm: 2.2
+      env: PUPPET_VERSION="~> 3.0"
+    - rvm: 2.3
+      env: PUPPET_VERSION="~> 3.0"
+    - rvm: jruby-head
+      env: PUPPET_VERSION="~> 3.0"
+    - rvm: jruby-18mode
+      env: PUPPET_VERSION="~> 3.0"
+    - rvm: jruby-19mode
+      env: PUPPET_VERSION="~> 3.0"
 
 # Call the default puppetlabs test provider which will validate, lint, and test.
 script:
