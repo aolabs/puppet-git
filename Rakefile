@@ -1,4 +1,4 @@
-if RUBY_VERSION => '2.0'
+if RUBY_VERSION >= '2.0'
   require 'coveralls'
   Coveralls.wear!
 end
