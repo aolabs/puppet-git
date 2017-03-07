@@ -12,22 +12,6 @@ addons:
     packages:
       - haveged
 
-# Install JDKs for jRuby testing.
-jdk:
-  - openjdk7
-  - oraclejdk7
-  - oraclejdk8
-  - openjdk6
-
-# Install ruby versions.
-ruby:
-  - 2.1
-  - 2.2
-  - 2.3
-  - jruby-head
-  - jruby-18mode
-  - jruby-19mode
-
 language: ruby
 matrix:
   fast_finish: true
