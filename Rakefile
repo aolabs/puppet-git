@@ -1,5 +1,7 @@
-require 'coveralls'
-Coveralls.wear!
+if RUBY_VERSION >= '2.0.0'
+  require 'coveralls'
+  Coveralls.wear!
+end
 
 require 'puppetlabs_spec_helper/rake_tasks'
 require 'puppet-lint/tasks/puppet-lint'
