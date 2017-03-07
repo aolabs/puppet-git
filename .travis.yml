@@ -15,8 +15,8 @@ addons:
 env:
   global:
     - USENETWORK=true
-    - STRICT_VARIABLES=true
-    - STRICT=error
+    - STRICT_VARIABLES="yes"
+    - STRICT="error"
 
 jdk:
   - openjdk6
