@@ -29,7 +29,7 @@ rvm:
   - 2.1
   - 2.2
   - 2.3
-  - jruby-head
+  - jruby
 
 language: ruby
 
@@ -47,7 +47,7 @@ matrix:
       env: PUPPET_VERSION="~> 3.0"
     - rvm: 2.3
       env: PUPPET_VERSION="~> 3.0"
-    - rvm: jruby-head
+    - rvm: jruby
       env: PUPPET_VERSION="~> 3.0"
 
 # Call the default puppetlabs test provider which will validate, lint, and test.
