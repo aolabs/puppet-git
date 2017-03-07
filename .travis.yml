@@ -17,12 +17,16 @@ env:
     - USENETWORK=true
     - STRICT_VARIABLES="yes"
     - STRICT="error"
+  matrix:
+    - PUPPET_VERSION="~> 3.0"
+    - PUPPET_VERSION="~> 4.0"
 
 jdk:
   - openjdk6
   - openjdk7
   - oraclejdk7
   - oraclejdk8
+
 rvm:
   - 2.1
   - 2.2
@@ -34,70 +38,33 @@ rvm:
 language: ruby
 
 matrix:
-  #exclude:
-#
-#    - jdk: openjdk6
-#    - jdk: openjdk7
-#    - jdk: oraclejdk7
-#    - jdk: oraclejdk8
-#    - rvm: 2.1
-#    - rvm: 2.2
-#    - rvm: 2.3
-#    - rvm: jruby-head
-#    - rvm: jruby-18mode
-#    - rvm: jruby-19mode
+  exclude:
+    - rvm: 2.1
+      jdk: openjdk6
+    - rvm: 2.1
+      jdk: openjdk7
+    - rvm: 2.1
+      jdk: oraclejdk7
+    - rvm: 2.1
+      jdk: oraclejdk8
 
-  include:
+    - rvm: 2.2
+      jdk: openjdk6
+    - rvm: 2.2
+      jdk: openjdk7
+    - rvm: 2.2
+      jdk: oraclejdk7
+    - rvm: 2.2
+      jdk: oraclejdk8
 
-  - rvm: 2.1
-    env: PUPPET_VERSION="~> 3.0"
-  - rvm: 2.1
-    env: PUPPET_VERSION="~> 4.0"
-  - rvm: 2.2
-    env: PUPPET_VERSION="~> 4.0"
-  - rvm: 2.3
-    env: PUPPET_VERSION="~> 4.0"
-
-  - rvm: jruby-head
-    env: PUPPET_VERSION="~> 4.0"
-    jdk: openjdk6
-  - rvm: jruby-head
-    env: PUPPET_VERSION="~> 4.0"
-    jdk: openjdk7
-  - rvm: jruby-head
-    env: PUPPET_VERSION="~> 4.0"
-    jdk: oraclejdk7
-  - rvm: jruby-head
-    env: PUPPET_VERSION="~> 4.0"
-    jdk: oraclejdk8
-
-
-  - rvm: jruby-18mode
-    env: PUPPET_VERSION="~> 4.0"
-    jdk: openjdk6
-  - rvm: jruby-18mode
-    env: PUPPET_VERSION="~> 4.0"
-    jdk: openjdk7
-  - rvm: jruby-18mode
-    env: PUPPET_VERSION="~> 4.0"
-    jdk: oraclejdk7
-  - rvm: jruby-18mode
-    env: PUPPET_VERSION="~> 4.0"
-    jdk: oraclejdk8
-
-  - rvm: jruby-19mode
-    env: PUPPET_VERSION="~> 4.0"
-    jdk: openjdk6
-  - rvm: jruby-19mode
-    env: PUPPET_VERSION="~> 4.0"
-    jdk: openjdk7
-  - rvm: jruby-19mode
-    env: PUPPET_VERSION="~> 4.0"
-    jdk: oraclejdk7
-  - rvm: jruby-19mode
-    env: PUPPET_VERSION="~> 4.0"
-    jdk: oraclejdk8
-
+    - rvm: 2.3
+      jdk: openjdk6
+    - rvm: 2.3
+      jdk: openjdk7
+    - rvm: 2.3
+      jdk: oraclejdk7
+    - rvm: 2.3
+      jdk: oraclejdk8
 
 # Call the default puppetlabs test provider which will validate, lint, and test.
 script:
