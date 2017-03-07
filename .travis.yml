@@ -12,6 +12,12 @@ addons:
     packages:
       - haveged
 
+jdk:
+  - openjdk6
+  - openjdk7
+  - oraclejdk7
+  - oraclejdk8
+
 language: ruby
 matrix:
   fast_finish: true
