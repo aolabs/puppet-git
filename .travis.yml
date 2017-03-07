@@ -12,7 +12,12 @@ addons:
     packages:
       - haveged
 
-env: USENETWORK=true STRICT_VARIABLES=true STRICT=error
+env:
+  global:
+    - USENETWORK=true
+    - STRICT_VARIABLES=true
+    - STRICT=error
+
 jdk:
   - openjdk6
   - openjdk7
@@ -98,6 +103,13 @@ matrix:
 # Call the default puppetlabs test provider which will validate, lint, and test.
 script:
   - 'bundle exec rake test'
+
+notifcations:
+  email:
+    recipients:
+      - patrick@aolabs.nz
+    on_success: change
+    on_failure: change
 
 deploy:
   - provider: puppetforge
