@@ -11,7 +11,6 @@ addons:
   apt:
     packages:
       - haveged
-      - java-1.6.0-openjdk
 
 env:
   global:
@@ -22,12 +21,6 @@ env:
   matrix:
     - PUPPET_VERSION="~> 3.0"
     - PUPPET_VERSION="~> 4.0"
-
-jdk:
-  - openjdk6
-  - openjdk7
-  - oraclejdk7
-  - oraclejdk8
 
 rvm:
   - 2.1
@@ -41,37 +34,6 @@ language: ruby
 
 matrix:
   exclude:
-    - rvm: 2.1
-      jdk: openjdk6
-    - rvm: 2.1
-      jdk: openjdk7
-    - rvm: 2.1
-      jdk: oraclejdk7
-    - rvm: 2.1
-      jdk: oraclejdk8
-
-    - rvm: 2.2
-      jdk: openjdk6
-    - rvm: 2.2
-      jdk: openjdk7
-    - rvm: 2.2
-      jdk: oraclejdk7
-    - rvm: 2.2
-      jdk: oraclejdk8
-
-    - rvm: 2.3
-      jdk: openjdk6
-    - rvm: 2.3
-      jdk: openjdk7
-    - rvm: 2.3
-      jdk: oraclejdk7
-    - rvm: 2.3
-      jdk: oraclejdk8
-
-  include:
-    - rvm: 2.1
-    - rvm: 2.2
-    - rvm: 2.3
 
 # Call the default puppetlabs test provider which will validate, lint, and test.
 script:
