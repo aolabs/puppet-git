@@ -31,6 +31,10 @@ rvm:
   - 2.3
   - jruby-head
 
+bundler_args: --without system_tests
+before_install:
+  - gem update bundler
+
 language: ruby
 
 matrix:
